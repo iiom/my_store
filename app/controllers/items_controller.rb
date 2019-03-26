@@ -18,6 +18,7 @@ class ItemsController < ApplicationController
 
   # /items/1/edit GET
   def edit
+    @item = Item.find(params[:id])
   end
 
   # /items POST
@@ -31,8 +32,18 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item = Item.find(params[:id])
+    @item.update_attributes(params[:item])
+    if @item.errors.empty?
+      redirect_to item_path(@item)
+    else
+      render "edit"
+    end
   end
 
   def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to action: "index"
   end
 end
