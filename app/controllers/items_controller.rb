@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-  before_action :find_item, only: [:show, :edit, :update, :destroy]
+  before_action :find_item, only: [:show, :edit, :update, :destroy]  #before_filter
 
   def index
     @items = Item.all
@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
 
   # /items POST
   def create
-    @item = Item.create(params[:item])
+    @item = Item.create(item_params)
     if @item.errors.empty?
       redirect_to item_path(@item)
     else
@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update_attributes(params[:item])
+    @item.update_attributes(item_params)
     if @item.errors.empty?
       redirect_to item_path(@item)
     else
@@ -49,5 +49,9 @@ class ItemsController < ApplicationController
 private
   def find_item
     @item = Item.find(params[:id])
+  end
+
+  def item_params
+    params.require(:item).permit(:price, :name, :weight, :description)
   end
 end
