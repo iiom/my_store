@@ -16,6 +16,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/test/
+/tmp/
 
 # Ignore uploaded files in development
 /storage/*
@@ -32,3 +34,6 @@
 
 .idea
 .vscode
+.Gemfile.lock
+.ruby-version
+
